@@ -1,4 +1,4 @@
 {
   "name": "sensable_phantom",
-  "dependencies": ["cisst", "sawSensablePhantomAll"]
+  "dependencies": ["cisst", "sawControllersAll", "sawSensablePhantomAll"]
 }
