@@ -5,7 +5,7 @@
   Author(s):  Anton Deguet
   Created on: 2017-03-21
 
-  (C) Copyright 2017-2022 Johns Hopkins University (JHU), All Rights Reserved.
+  (C) Copyright 2017-2023 Johns Hopkins University (JHU), All Rights Reserved.
 
 --- begin cisst license - do not edit ---
 
@@ -40,8 +40,8 @@ int main(int argc, char * argv[])
     cmnLogger::AddChannel(std::cerr, CMN_LOG_ALLOW_ERRORS_AND_WARNINGS);
 
     // create ROS node handle
-    rclcpp::init(argc, argv);
-    auto rosNode = std::make_shared<rclcpp::Node>("NDITracker");
+    std::vector<std::string> non_ros_arguments = rclcpp::init_and_remove_ros_arguments(argc, argv);
+    auto rosNode = std::make_shared<rclcpp::Node>("SensableOmni");
 
     // parse options
     cmnCommandLineOptions options;
@@ -57,7 +57,7 @@ int main(int argc, char * argv[])
                               "period in seconds to read all tool positions (default 0.002, 2 ms, 500Hz).  There is no point to have a period higher than the device",
                               cmnCommandLineOptions::OPTIONAL_OPTION, &rosPeriod);
     options.AddOptionOneValue("P", "tf-ros-period",
-                              "period in seconds to read all components and broadcast tf2 (default 0.02, 20 ms, 50Hz).  There is no point to have a period higher than the arm component's period",
+                              "period in seconds to read all components and broadcast tf2 (default 0.02, 20 ms, 50Hz).",
                               cmnCommandLineOptions::OPTIONAL_OPTION, &tfPeriod);
     options.AddOptionMultipleValues("m", "component-manager",
                                     "JSON files to configure component manager",
@@ -66,10 +66,7 @@ int main(int argc, char * argv[])
                              "replaces the default Qt palette with darker colors");
 
     // check that all required options have been provided
-    std::string errorMessage;
-    if (!options.Parse(argc, argv, errorMessage)) {
-        std::cerr << "Error: " << errorMessage << std::endl;
-        options.PrintUsage(std::cerr);
+    if (!options.Parse(non_ros_arguments, std::cerr)) {
         return -1;
     }
     std::string arguments;
