@@ -88,6 +88,12 @@ if (cisst_FOUND_AS_REQUIRED)
     INCLUDES DESTINATION include
     )
 
+  # launch files
+  install (
+    PROGRAMS launch/sensable_phantom_rviz.launch.py
+    DESTINATION share/${PROJECT_NAME}
+    )
+
   ament_package ()
 
 endif (cisst_FOUND_AS_REQUIRED)

@@ -39,3 +39,7 @@ repositories:
     type: git
     url: https://github.com/collaborative-robotics/ros2_crtk_python_client.git
     version: main
+  sensable_omni_model:
+    type: git
+    https://github.com/jhu-saw/ros2_sensable_omni_model
+    version main
