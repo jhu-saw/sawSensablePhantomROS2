@@ -41,5 +41,5 @@ repositories:
     version: main
   sensable_omni_model:
     type: git
-    url: https://github.com/jhu-saw/ros2_sensable_omni_model
+    url: https://github.com/jhu-saw/ros2_sensable_omni_model.git
     version: main
